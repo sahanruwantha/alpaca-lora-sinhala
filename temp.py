@@ -71,18 +71,15 @@ sinhala_unicode_mapping_1 = {
     'යේ': 'yee', 'යෛ': 'yai', 'යො': 'yo', 'යෝ': 'yoo', 'යෞ': 'yau',
     'රා': 'raa', 'රැ': 'rA', 'රෑ': 'rAa', 'රි': 'ri', 'රී': 'rii', 'රු': 'ru', 'රූ': 'ruu', 'රෘ': 'rru', 'රෙ': 're',
     'රේ': 'ree', 'රෛ': 'rai', 'රො': 'ro', 'රෝ': 'roo', 'රෞ': 'rau',
-    # 'ා': 'aa', 'ැ': 'A', 'ෑ': 'Aa', 'ි': 'i', 'ී': 'ii', 'ු': 'u', 'ූ': 'uu', 'ෘ': 'ru', 'ෙ': 'e', 'ේ': 'ee', 'ෛ': 'ai',
-    # 'ො': 'o', 'ෝ': 'oo', 'ෞ': 'au',
-    # '්‍ය': 'ya', '්‍ර': 'ra'
+    'ා': 'aa', 'ැ': 'A', 'ෑ': 'Aa', 'ි': 'i', 'ී': 'ii', 'ු': 'u', 'ූ': 'uu', 'ෘ': 'ru', 'ෙ': 'e', 'ේ': 'ee', 'ෛ': 'ai',
+    'ො': 'o', 'ෝ': 'oo', 'ෞ': 'au',
+    '්‍ය': 'ya', '්‍ර': 'ra'
 }
 
 sinhala_unicode_mapping_2 = {
-    'අ': 'a','ඉ': 'i', 'ඊ': 'ii', 'උ': 'u', 'ඍ': 'Ru','එ': 'e', 'ඔ': 'o', 'ක': 'k', 'ග': 'g', 'ච': 'ch', 
-    'ජ': 'j','ට': 't','ඩ': 'd', 'ඩෙ': 'd', 'න': 'n','ප': 'p', 'බ': 'b', 
-    'භ': 'bh', 'ස': 's', 'හ': 'h','ය': 'y','ර': 'r', 'ම': 'm'
-    # 'ා': 'aa', 'ැ': 'A', 'ෑ': 'Aa', 'ි': 'i', 'ී': 'ii', 'ු': 'u', 'ූ': 'uu', 'ෘ': 'ru', 'ෙ': 'e', 'ේ': 'ee', 'ෛ': 'ai',
-    # 'ො': 'o', 'ෝ': 'oo', 'ෞ': 'au',
-    # '්‍ය': 'ya', '්‍ර': 'ra'
+    'අ': 'a', 'ඉ': 'i', 'ඊ': 'ii', 'උ': 'u', 'ඍ': 'Ru', 'එ': 'e', 'ඔ': 'o', 'ක': 'k', 'ග': 'g', 'ච': 'ch',
+    'ජ': 'j', 'ට': 't', 'ඩ': 'd', 'න': 'n', 'ප': 'p', 'බ': 'b', 'ල' : 'l', 'ද': 'd', 'ව': 'w' , 
+    'භ': 'bh', 'ස': 's', 'හ': 'h', 'ය': 'y', 'ර': 'r', 'ම': 'm', 'ත': 'th', ' ': ' ' 
 }
 
 sinhala_unicode_mapping_3 = {
@@ -90,29 +87,37 @@ sinhala_unicode_mapping_3 = {
     'ො': 'o', 'ෝ': 'oo', 'ෞ': 'au',
     '්‍ය': 'ya', '්‍ර': 'ra'
 }
+
 def to_sinhala_unicode(input_text):
-    temp_array = []
+    output_array = []
+    input_array = []
 
     for i, char in enumerate(input_text):
-        print(char)
-        temp_char_1 = sinhala_unicode_mapping_2.get(char)
-        temp_char_2 = sinhala_unicode_mapping_3.get(char)
+        input_array.append(char)
+        e_char = sinhala_unicode_mapping_2.get(char)
+        if e_char is not None:
+            # Check if the character is a space
+            if char == ' ':
+                output_array.append(char)
+            else:
+                output_array.append(e_char)
+            
+            # Check if the next character is within the bounds of the string
+            if i + 1 < len(input_text):
+                e_char_1 = sinhala_unicode_mapping_2.get(input_text[i + 1])
+                e_char_2 = sinhala_unicode_mapping_3.get(input_text[i + 1])
 
-        if temp_char_1 is not None:
-            temp_array.append(temp_char_1)
+                # found a pillam
+                if e_char_1 is None and e_char_2 is not None:
+                    output_array.append(e_char_2)
+                if e_char_1 is not None and input_text[i] != ' ':
+                    output_array.append('a')
+            
+            if char == 'ඔ':
+                output_array.pop()
 
-        elif temp_char_2 is not None:
-            temp_array.append(temp_char_2)
+    print("Input array:", input_array)
+    print("Output array:", output_array)
 
-        if char == " " or i == len(input_text) - 1:
-            temp_array.append("a")
-        if char == " ":
-            temp_array.append(" ")
-
-    print(temp_array)
-
-# Example usage
-input_text = "ඔබ කැමති නම් මට කියන්න"
+input_text = "මිහිරැති වසන්ත කාලේ "
 to_sinhala_unicode(input_text)
-
-
