@@ -87,7 +87,6 @@ sinhala_unicode_mapping_3 = {
     'ො': 'o', 'ෝ': 'oo', 'ෞ': 'au',
     '්‍ය': 'ya', '්‍ර': 'ra'
 }
-
 def to_sinhala_unicode(input_text):
     output_array = []
     input_array = []
@@ -95,6 +94,7 @@ def to_sinhala_unicode(input_text):
     for i, char in enumerate(input_text):
         input_array.append(char)
         e_char = sinhala_unicode_mapping_2.get(char)
+
         if e_char is not None:
             # Check if the character is a space
             if char == ' ':
@@ -115,9 +115,13 @@ def to_sinhala_unicode(input_text):
             
             if char == 'ඔ':
                 output_array.pop()
+        else:
+            # Character not found in mapping, keep the original character
+            output_array.append(char)
 
     print("Input array:", input_array)
     print("Output array:", output_array)
 
-input_text = "මිහිරැති වසන්ත කාලේ "
+
+input_text = "පහත සඳහන් දෑ සතුන්, ශාක සහ ඛනිජ ලෙස වර්ග කරන්න "
 to_sinhala_unicode(input_text)
