@@ -78,8 +78,8 @@ sinhala_unicode_mapping_1 = {
 
 sinhala_unicode_mapping_2 = {
     'අ': 'a', 'ඉ': 'i', 'ඊ': 'ii', 'උ': 'u', 'ඍ': 'Ru', 'එ': 'e', 'ඔ': 'o', 'ක': 'k', 'ග': 'g', 'ච': 'ch',
-    'ජ': 'j', 'ට': 't', 'ඩ': 'd', 'න': 'n', 'ප': 'p', 'බ': 'b', 'ල' : 'l', 'ද': 'd', 'ව': 'w' , 
-    'භ': 'bh', 'ස': 's', 'හ': 'h', 'ය': 'y', 'ර': 'r', 'ම': 'm', 'ත': 'th', ' ': ' ' 
+    'ජ': 'j', 'ට': 't', 'ඩ': 'd', 'න': 'n', 'ප': 'p', 'බ': 'b', 'ල' : 'l', 'ද': 'd', 'ව': 'w' , 'ශ' : 'sh',
+    'භ': 'bh', 'ස': 's', 'හ': 'h', 'ය': 'y', 'ර': 'r', 'ම': 'm', 'ත': 'th', 'ඛ':'kh' , ' ': ' ' 
 }
 
 sinhala_unicode_mapping_3 = {
@@ -87,6 +87,7 @@ sinhala_unicode_mapping_3 = {
     'ො': 'o', 'ෝ': 'oo', 'ෞ': 'au',
     '්‍ය': 'ya', '්‍ර': 'ra'
 }
+
 def to_sinhala_unicode(input_text):
     output_array = []
     input_array = []
@@ -94,6 +95,10 @@ def to_sinhala_unicode(input_text):
     for i, char in enumerate(input_text):
         input_array.append(char)
         e_char = sinhala_unicode_mapping_2.get(char)
+        p_char = sinhala_unicode_mapping_2.get(char)
+
+        if e_char is None and p_char is not None:
+            output_array.append
 
         if e_char is not None:
             # Check if the character is a space
@@ -110,11 +115,12 @@ def to_sinhala_unicode(input_text):
                 # found a pillam
                 if e_char_1 is None and e_char_2 is not None:
                     output_array.append(e_char_2)
-                if e_char_1 is not None and input_text[i] != ' ':
+                elif e_char_1 is not None and input_text[i] != ' ':
                     output_array.append('a')
             
             if char == 'ඔ':
                 output_array.pop()
+
         else:
             # Character not found in mapping, keep the original character
             output_array.append(char)
