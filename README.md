@@ -1,4 +1,4 @@
-# Sinhala Language Fine-tuned Alpaca 2b Model
+# Sinhala Language Fine-tuned Alpaca 7b Model
 
 ## Overview
 This repository contains the code and resources for fine-tuning the Alpaca 2b model for the Sinhala language. The Alpaca 2b model is a powerful language model, and this project aims to adapt it to the Sinhala language through fine-tuning.
