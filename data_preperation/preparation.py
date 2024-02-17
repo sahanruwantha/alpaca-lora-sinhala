@@ -1,34 +1,28 @@
 import json
 
-def convert_to_json(input_text):
-    entries = []
-    current_entry = {}
+new_data = []
 
-    for line in input_text.splitlines():
-        if line.startswith("Translated Instruction:"):
-            if current_entry:
-                entries.append(current_entry)
-            current_entry = {"instruction": line.split(":")[1].strip()}
-        elif line.startswith("Translated Input:"):
-            current_entry["input"] = line.split(":")[1].strip()
-        elif line.startswith("Translated Output:"):
-            current_entry["output"] = line.split(":")[1].strip()
+# Load the JSON file
+with open('/home/sahan/Desktop/alpaca-lora-sinhala/data/data.json', 'r', encoding='utf-8') as file:
+    data = json.load(file)
 
-    if current_entry:
-        entries.append(current_entry)
+# Iterate over each entry in the JSON file
+for entry in data:
+    instruction = entry['instruction']
+    input_value = entry.get('input', '')  # Use get() method to avoid KeyError
+    output = entry['output']
 
-    return json.dumps(entries, ensure_ascii=False)
+    new_entry = {
+        "instruction": instruction,
+        "input": input_value,
+        "output": output
+    }
 
-# Read the content of your text file
-with open('../batches/translated-final/combined_file.txt', 'r', encoding='utf-8') as file:
-    input_text = file.read()
+    new_data.append(new_entry)
 
-# Convert to JSON format
-json_result = convert_to_json(input_text)
+# Create a new JSON file for saving the modified data
+new_json_file_path = 'modified_data.json'
 
-with open('data.json', 'w', encoding='utf-8') as json_file:
-    json_file.write(json_result)
-
-print("Conversion completed. Output saved as data.json.")
-
-
+# Save the modified data to the new JSON file
+with open(new_json_file_path, 'w', encoding='utf-8') as new_json_file:
+    json.dump(new_data, new_json_file, ensure_ascii=False, indent=4)
