@@ -2,9 +2,9 @@ from google.cloud import translate_v2 as translate
 import json
 
 # Replace 'your_project_key.json' with your service account key file
-# Replace 'your_project_id' with your Google Cloud project ID
 
-key_file = 'sinhala-assistant-409516-e97fb883555d.json'
+
+key_file = ''
 
 # Instantiate a client
 client = translate.Client.from_service_account_json(key_file)
