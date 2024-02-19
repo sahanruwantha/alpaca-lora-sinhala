@@ -12,13 +12,15 @@ The translated dataset is available in the `data` directory. It includes both th
 ## Pre-trained Model
 If you don't want to go through the fine-tuning process, a pre-trained Sinhala model is available in the `pretrained_model` directory. You can use this model for Sinhala language tasks directly. Check out the pre-trained model [here](www.huggingface.com).
 
-## License
-This project is licensed under the [MIT License](LICENSE.md).
+## Colab NoteBook
+
+ You can find the notebook here [https://colab.research.google.com/drive/1Kxiz5dmQDd9H0cQmXpzHst2laQZU3YUn?usp=sharing](colab)
 
 ## Acknowledgments
 - The Alpaca 7b model and dataset by the original authors
 - Google Translator for initial dataset translation.
 
 Feel free to contribute to this project and improve the Sinhala language model.
+
 
 Happy fine-tuning!
